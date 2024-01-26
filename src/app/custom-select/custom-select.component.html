@@ -1,0 +1,34 @@
+<div class="select-wrapper">
+  <div
+    #select
+    class="mainSelect mySelect"
+    role="listbox"
+    (click)="showDropdown()"
+    (blur)="onTouched()"
+    [attr.id]="inputId"
+    [attr.aria-label]="ariaLabel || null"
+    [attr.aria-labelledby]="ariaLabelledby || null"
+    [attr.aria-multiselectable]="false"
+  >
+    <span>סטטוס בקשה</span>
+    <span class="dropdown-arrow" (click)="onDropMenuIconClick($event)">
+      <mat-icon *ngIf="showing" svgIcon="arrow-up"></mat-icon>
+      <mat-icon *ngIf="!showing" svgIcon="arrow-down"></mat-icon>
+    </span>
+  </div>
+  
+  <ng-template cdk-portal class="dropdown" #overlayTemplate="cdkPortal">
+    <div class="custom-dropdown-menu">
+      <div class="dropdown-options-container">
+        <ng-content></ng-content>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="select-controls">
+        <button class="select-button" [class.disabled]="!isSubmitEnabled" (click)="submit()">הצגת בקשות</button>
+        <button *ngIf="isSubmitEnabled" class="select-button cancel" (click)="cancel()">ניקוי בחירה</button>
+      </div>
+    </div>
+  </ng-template>
+</div>
